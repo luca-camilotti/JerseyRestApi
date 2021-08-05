@@ -10,6 +10,8 @@ import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
+import org.glassfish.jersey.message.internal.MessageBodyProviderNotFoundException;
+
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 
@@ -37,6 +39,10 @@ public class MyExceptionHandler implements ExceptionMapper<Exception>
     	else if(exception instanceof SQLException) {
 			//return Response.status(503).entity(exception.getMessage()).build();
     		return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new ErrorResponse(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), Response.Status.INTERNAL_SERVER_ERROR.getReasonPhrase()+": "+exception.getMessage())).build();		
+    	}
+    	else if(exception instanceof MessageBodyProviderNotFoundException) {
+			//return Response.status(503).entity(exception.getMessage()).build();
+    		return Response.status(Response.Status.BAD_REQUEST).entity(new ErrorResponse(Response.Status.BAD_REQUEST.getStatusCode(), Response.Status.BAD_REQUEST.getReasonPhrase()+": "+exception.getMessage())).build();		
     	}
     	else if(exception instanceof ParseException) {
 			// return Response.status(503).entity(exception.getMessage()).build();

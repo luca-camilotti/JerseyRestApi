@@ -16,41 +16,24 @@ public class dbHelper {
 	private static  String URL_myDB = "jdbc:mysql://localhost:3306/azienda"; // azienda � il nome del DB
 	public static  String queryAllDipendente = "SELECT * FROM dipendente";
 	private static  String user = "root";
-	private static  String pwd = "";
-	// Database Connection
-	public static void connect() {		
-		try 
-		{
-			Class.forName(DRIVER);
-			System.out.println("Driver Connector/J trovato!");
-		}
-		catch (ClassNotFoundException e)
-		{
-			System.out.println("WARNING: driver Connector/J NON trovato!");
-			//System.exit(1);  //quit
-		}		
+	private static  String pwd = "root";
+	
+	public static void init() throws ClassNotFoundException {
+		Class.forName(DRIVER);
+		System.out.println("Driver Connector/J trovato!");		
 
-		// Connessione al DB	    
-		try
-		{
-			dbcon = DriverManager.getConnection(URL_myDB, user, pwd);
-			System.out.println("OK! Connesso a "+ URL_myDB+"!");
-		}
-		catch (Exception e)
-		{
-			dbcon = null;
-			System.out.println("Errore di connessione a "+ URL_myDB);
-			//System.exit(1);  //quit
-		}
 	}
-	public static void close() {
-		if(dbcon != null)
-			try {
-				dbcon.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+	
+	// Database Connection
+	public static void connect() throws SQLException {		
+		
+		// Connessione al DB	    
+		dbcon = DriverManager.getConnection(URL_myDB, user, pwd);
+		System.out.println("OK! Connesso a "+ URL_myDB+"!");		
+	}
+	public static void close() throws SQLException  {
+		if(dbcon != null)			
+			dbcon.close();			
 	}
 	
 	private static int getSize(ResultSet resultSet) {

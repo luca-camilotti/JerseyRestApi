@@ -15,6 +15,13 @@ public class ApplicationStartUpListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent event) {
         System.out.println("---- Maven Jersey project: initialize servlet context -----");
         // add initialization code here
+        try {
+			dbHelper.init();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Driver not found!");
+			e.printStackTrace();
+		}
         //dbHelper.connect();
         //dbHelper.query(dbHelper.queryAllDipendente);
     }

@@ -68,12 +68,16 @@
             <groupId>org.glassfish.jersey.media</groupId>
             <artifactId>jersey-media-json-binding</artifactId>
         </dependency>
-        
+	<!-- dependency>
+		<groupId>org.glassfish.jersey.media</groupId>
+		<artifactId>jersey-media-json-jackson</artifactId>
+		<scope>runtime</scope>
+	</dependency -->
         
         	<dependency>
     			<groupId>mysql</groupId>
     			<artifactId>mysql-connector-java</artifactId>
-    			<version>5.1.40</version>
+    			<version>8.0.19</version>
 			</dependency>
 			<dependency>
 				<groupId>javax.servlet</groupId>
@@ -114,8 +118,8 @@
     		<dependency>
           		<groupId>com.fasterxml.jackson.jaxrs</groupId>
           		<artifactId>jackson-jaxrs-json-provider</artifactId>
-          	<version>${jackson.version}</version>
-    </dependency>
+          	<version>${jackson.version}</version>          	
+    		</dependency>
     </dependencies>
     <properties>
     	<jackson.version>2.11.0</jackson.version>

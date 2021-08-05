@@ -1,6 +1,7 @@
 package luke.jersey.rest.api;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -49,7 +50,7 @@ public class dataRest {
         //json.put("message", operation+" Not found!");
 		//return Response.ok(json.toString(), MediaType.APPLICATION_JSON).build();
 		
-		throw new MyApiException("Server Error Test Response: "+operation);  // testing exception handler
+		throw new MyApiException("Test Server Error Response: "+operation);  // testing exception handler
 		// return Response.status(Response.Status.NOT_FOUND).entity(new ErrorResponse(Response.Status.NOT_FOUND.getStatusCode(), operation+" Not found!")).build();  // OK
 	}
 	
@@ -72,7 +73,7 @@ public class dataRest {
 	@GET
 	@Path("list")
 	@Produces(MediaType.APPLICATION_JSON)
-	public employee[] employeelist() {
+	public employee[] employeelist() throws SQLException {
 		employee[] e = new employee[3];
 		e[0] = new employee();
 		e[0].setId("abc42");
@@ -86,7 +87,9 @@ public class dataRest {
 		e[2].setId("kjb38");
 		e[2].setFirstName("Bruce");
 		e[2].setLastName("Wayne");
+		dbHelper.connect();
 		e = dbHelper.query(dbHelper.queryAllDipendente);
+		dbHelper.close();
 		return e;
 	}
 	
